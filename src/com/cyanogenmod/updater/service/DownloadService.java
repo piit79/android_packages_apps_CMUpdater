@@ -50,6 +50,7 @@ public class DownloadService extends IntentService
     private UpdateInfo mInfo = null;
 
     public static void start(Context context, UpdateInfo ui) {
+        Log.w(TAG, "start");
         Intent intent = new Intent(context, DownloadService.class);
         intent.putExtra(EXTRA_UPDATE_INFO, (Parcelable) ui);
         context.startService(intent);
@@ -61,6 +62,7 @@ public class DownloadService extends IntentService
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.w(TAG, "onHandleIntent");
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mInfo = intent.getParcelableExtra(EXTRA_UPDATE_INFO);
 
@@ -72,6 +74,7 @@ public class DownloadService extends IntentService
         try {
             getIncremental();
         } catch (IOException e) {
+            Log.w(TAG, "going to downloadFullZip");
             downloadFullZip();
         }
     }
@@ -183,7 +186,7 @@ public class DownloadService extends IntentService
     }
 
     private void downloadFullZip() {
-        Log.v(TAG, "Downloading full zip");
+        Log.w(TAG, "Downloading full zip");
 
         // Build the name of the file to download, adding .partial at the end.  It will get
         // stripped off when the download completes

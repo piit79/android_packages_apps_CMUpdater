@@ -44,6 +44,7 @@ public class DownloadReceiver extends BroadcastReceiver{
         String action = intent.getAction();
 
         if (ACTION_START_DOWNLOAD.equals(action)) {
+            Log.w(TAG, "got ACTION_START_DOWNLOAD");
             UpdateInfo ui = (UpdateInfo) intent.getParcelableExtra(EXTRA_UPDATE_INFO);
             handleStartDownload(context, ui);
         } else if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
@@ -65,6 +66,7 @@ public class DownloadReceiver extends BroadcastReceiver{
     }
 
     private void handleStartDownload(Context context, UpdateInfo ui) {
+        Log.w(TAG, "handleStartDownload");
         DownloadService.start(context, ui);
     }
 
